@@ -151,10 +151,5 @@
                 </configuration>
             </plugin>
         </plugins>
-
-
     </build>
-
-<!--    "C:\Program Files\Java\jdk-18.0.1\bin\java.exe" -jar "C:\Users\fidox\IdeaProjects\project-maven\target\project-maven-1.0.jar" -->
-
 </project>
