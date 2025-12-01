@@ -13,6 +13,14 @@
         <maven.compiler.target>18</maven.compiler.target>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>localrep</id>
+            <name>local repository</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
@@ -56,6 +64,28 @@
         </resources>
 
         <plugins>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-install-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.4</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/com/javarush/desktop-game-engine/1.0/desktop-game-engine-1.0.jar</file>
+                            <groupId>com.javarush</groupId>
+                            <artifactId>desktop-game-engine</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -95,13 +125,13 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</mainClass>
                         </manifest>
                         <manifestEntries>
+                            <Class-Path>./</Class-Path>
                             <Rsrc-Main-Class>com.javarush.games.racer.RacerGame</Rsrc-Main-Class>
-                            <Class-Path>./ lib/commons-lang3-3.12.0.jar lib/javafx-controls-18-ea+1.jar lib/desktop-game-engine.jar</Class-Path>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -115,28 +145,6 @@
                 <configuration>
                     <mainClass>com.javarush.games.racer.RacerGame</mainClass>
                 </configuration>
-            </plugin>
-
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-install-plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.1.4</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>${project.basedir}/lib/desktop-game-engine.jar</file>
-                            <groupId>com.javarush</groupId>
-                            <artifactId>desktop-game-engine</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
